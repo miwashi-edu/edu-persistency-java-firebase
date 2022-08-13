@@ -1,0 +1,36 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+ext {
+    loombookVersion = 'latest.integration'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    configurations.implementation {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+
+    compileOnly 'org.slf4j:slf4j-api:2.0.0-alpha7'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: "${loombookVersion}"
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.google.firebase:firebase-admin:6.11.0'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+
+    testImplementation 'org.slf4j:slf4j-api:2.0.0-alpha7'
+    testImplementation 'org.slf4j:slf4j-log4j12:2.0.0-alpha7'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+
+}
